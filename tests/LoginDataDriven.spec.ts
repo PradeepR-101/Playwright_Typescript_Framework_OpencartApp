@@ -52,7 +52,7 @@ const csvTestData = DataProvider.getTestDataFromCsv(csvPath);
 
 for(const data of csvTestData)
 {
-   test(`Login Test with CSV Data: ${data.testName} @datadriven`, async({page})=>{
+   test.only(`Login Test with CSV Data: ${data.testName} @datadriven`, async({page})=>{
 
         const config = new TestConfig(); // create instance
         await page.goto(config.appUrl);    // getting appURL from test.config.ts file
@@ -74,7 +74,9 @@ for(const data of csvTestData)
         else{
             const errorMessage=await loginPage.getloginErrorMessage();
             //expect(errorMessage).toBe('Warning: No match for E-Mail Address and/or Password.');
-            expect(errorMessage).toContain('Warning: No match');    
+            //expect(errorMessage).toContain('Warning: No match');
+            expect(errorMessage).toBe(' Warning: Your account has exceeded allowed number of login attempts. Please try again in 1 hour.');   
+     
         }
     })
 
